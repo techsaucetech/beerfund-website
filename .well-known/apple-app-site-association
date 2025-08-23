@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["com.beerfund.app"],
+        "components": [
+          {
+            "/": "/plaid/*",
+            "comment": "Matches any URL path whose path starts with /plaid/"
+          }
+        ]
+      }
+    ]
+  }
+} 
