@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/plaid/oauth-callback",
+      "destination": "/plaid/oauth-callback.html"
+    }
+  ]
+} 
