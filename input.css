@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@layer components {
+  .btn-primary {
+    @apply bg-gradient-to-r from-beer-400 to-beer-500 text-white font-semibold py-4 px-8 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 transform;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-purple-600 font-semibold py-4 px-8 rounded-full border-2 border-gray-200 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 transform;
+  }
+  
+  .phone-mockup {
+    @apply w-80 h-96 bg-gray-800 rounded-[40px] p-6 shadow-2xl relative;
+  }
+  
+  .phone-screen {
+    @apply bg-white h-full rounded-[25px] p-5 flex items-center justify-center;
+  }
+  
+  .reward-screen {
+    @apply bg-gradient-to-br from-green-500 to-green-600 h-full rounded-[25px] p-10 flex flex-col items-center justify-center text-white text-center relative overflow-hidden;
+  }
+  
+  .dashboard-screen {
+    @apply bg-white rounded-[25px] p-8 shadow-2xl text-gray-900;
+  }
+  
+  .goal-item {
+    @apply flex items-center gap-4 p-4 rounded-2xl bg-gray-50 border-2 border-transparent transition-all duration-300 hover:translate-x-2 hover:border-gray-200;
+  }
+  
+  .goal-item.completed {
+    @apply bg-green-50 border-green-200;
+  }
+  
+  .goal-item.active {
+    @apply bg-beer-50 border-beer-200;
+  }
+  
+  .crew-member {
+    @apply flex items-center gap-4 p-5 rounded-2xl bg-gray-50 border-2 border-gray-200 transition-all duration-300 hover:translate-x-2 hover:border-beer-400 hover:bg-beer-50;
+  }
+} 

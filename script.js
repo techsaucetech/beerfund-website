@@ -51,11 +51,11 @@ document.getElementById('waitlistForm').addEventListener('submit', function(e) {
     }
 });
 
-// Smooth scroll to App Store section (placeholder)
-function scrollToAppStore() {
-    // For now, scroll to the waitlist section
-    // When you have the App Store link, you can update this
-    document.querySelector('.waitlist').scrollIntoView({
+// Smooth scroll to download section
+function scrollToDownload() {
+    document.querySelector('.download-section')?.scrollIntoView({
+        behavior: 'smooth'
+    }) || document.querySelector('footer')?.scrollIntoView({
         behavior: 'smooth'
     });
 }
@@ -69,118 +69,75 @@ const observerOptions = {
 const observer = new IntersectionObserver(function(entries) {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            entry.target.classList.add('opacity-100', 'translate-y-0');
+            entry.target.classList.remove('opacity-0', 'translate-y-8');
         }
     });
 }, observerOptions);
 
 // Observe elements for animation
 document.addEventListener('DOMContentLoaded', function() {
-    const animatedElements = document.querySelectorAll('.step, .challenge-card, .benefit');
+    const animatedElements = document.querySelectorAll('.group, .animate-float');
     
     animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        el.classList.add('opacity-0', 'translate-y-8', 'transition-all', 'duration-700');
         observer.observe(el);
     });
 });
 
-// Add some interactive hover effects
+// Add interactive hover effects
 document.addEventListener('DOMContentLoaded', function() {
     // Add hover effects to challenge cards
-    const challengeCards = document.querySelectorAll('.challenge-card');
+    const challengeCards = document.querySelectorAll('.bg-white.rounded-3xl');
     
     challengeCards.forEach(card => {
         card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px) scale(1.02)';
+            this.style.transform = 'translateY(-8px) scale(1.02)';
         });
         
         card.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0) scale(1)';
         });
     });
-    
-    // Add hover effects to steps
-    const steps = document.querySelectorAll('.step');
-    
-    steps.forEach(step => {
-        step.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-8px)';
-        });
+});
+
+// Progress bar animation for the reward screen
+function animateRewardScreen() {
+    const rewardScreen = document.querySelector('.animate-bounce-slow');
+    if (rewardScreen) {
+        rewardScreen.style.opacity = '0';
+        rewardScreen.style.transform = 'scale(0.8)';
         
-        step.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-        });
-    });
-});
-
-// Progress bar animation for the phone mockup
-function animateProgressBar() {
-    const progressBar = document.querySelector('.progress');
-    if (progressBar) {
-        // Animate from 0 to 75%
-        progressBar.style.width = '0%';
         setTimeout(() => {
-            progressBar.style.width = '75%';
-        }, 1000);
+            rewardScreen.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+            rewardScreen.style.opacity = '1';
+            rewardScreen.style.transform = 'scale(1)';
+        }, 500);
     }
 }
 
-// Initialize progress bar animation when page loads
+// Initialize reward screen animation when page loads
 document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(animateProgressBar, 500);
-});
-
-// Add loading state to buttons
-function addLoadingState(button) {
-    const originalText = button.textContent;
-    button.textContent = 'Loading...';
-    button.disabled = true;
-    
-    return function() {
-        button.textContent = originalText;
-        button.disabled = false;
-    };
-}
-
-// Enhanced form submission with loading state
-document.getElementById('waitlistForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const submitButton = this.querySelector('button[type="submit"]');
-    const resetLoading = addLoadingState(submitButton);
-    
-    const email = document.getElementById('email').value;
-    
-    if (email) {
-        // Simulate API call delay
-        setTimeout(() => {
-            resetLoading();
-            openWaitlist();
-            document.getElementById('email').value = '';
-        }, 1000);
-    }
+    setTimeout(animateRewardScreen, 1000);
 });
 
 // Add some fun micro-interactions
 document.addEventListener('DOMContentLoaded', function() {
-    // Bounce effect on logo hover
-    const logo = document.querySelector('.logo');
-    if (logo) {
-        logo.addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.05)';
-            this.style.transition = 'transform 0.2s ease';
+    // Bounce effect on beer icon hover
+    const beerIcon = document.querySelector('.animate-bounce-slow');
+    if (beerIcon) {
+        beerIcon.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.1) rotate(5deg)';
+            this.style.transition = 'transform 0.3s ease';
         });
         
-        logo.addEventListener('mouseleave', function() {
-            this.style.transform = 'scale(1)';
+        beerIcon.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1) rotate(0deg)';
         });
     }
     
     // Add ripple effect to buttons
-    const buttons = document.querySelectorAll('.btn');
+    const buttons = document.querySelectorAll('button');
     buttons.forEach(button => {
         button.addEventListener('click', function(e) {
             const ripple = document.createElement('span');
@@ -206,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Add CSS for ripple effect
 const style = document.createElement('style');
 style.textContent = `
-    .btn {
+    button {
         position: relative;
         overflow: hidden;
     }
@@ -227,4 +184,129 @@ style.textContent = `
         }
     }
 `;
-document.head.appendChild(style); 
+document.head.appendChild(style);
+
+// Add floating elements animation enhancement
+document.addEventListener('DOMContentLoaded', function() {
+    const floatingElements = document.querySelectorAll('.animate-float');
+    
+    floatingElements.forEach((element, index) => {
+        // Add random initial positions and delays for more natural movement
+        element.style.animationDelay = `${index * 0.5}s`;
+        
+        // Add click interaction for fun
+        element.addEventListener('click', function() {
+            this.style.transform = 'scale(1.5) rotate(360deg)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 500);
+        });
+    });
+});
+
+// Add scroll-triggered animations
+window.addEventListener('scroll', function() {
+    const scrolled = window.pageYOffset;
+    const parallaxElements = document.querySelectorAll('.animate-float');
+    
+    parallaxElements.forEach(element => {
+        const speed = 0.5;
+        element.style.transform = `translateY(${scrolled * speed}px)`;
+    });
+});
+
+// Add loading state to download buttons
+function addLoadingState(button) {
+    const originalText = button.innerHTML;
+    button.innerHTML = '⏳ Loading...';
+    button.disabled = true;
+    
+    return function() {
+        button.innerHTML = originalText;
+        button.disabled = false;
+    };
+}
+
+// Enhanced button interactions
+document.addEventListener('DOMContentLoaded', function() {
+    const downloadButtons = document.querySelectorAll('button');
+    
+    downloadButtons.forEach(button => {
+        if (button.textContent.includes('Download') || button.textContent.includes('App Store')) {
+            button.addEventListener('click', function(e) {
+                const resetLoading = addLoadingState(this);
+                
+                // Simulate app store redirect delay
+                setTimeout(() => {
+                    resetLoading();
+                    // Here you would typically redirect to the App Store
+                    console.log('Redirecting to App Store...');
+                }, 1500);
+            });
+        }
+    });
+});
+
+// Add smooth reveal animations for sections
+const revealOptions = {
+    threshold: 0.15,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('opacity-100', 'translate-y-0');
+            entry.target.classList.remove('opacity-0', 'translate-y-12');
+        }
+    });
+}, revealOptions);
+
+document.addEventListener('DOMContentLoaded', function() {
+    const sections = document.querySelectorAll('section');
+    sections.forEach(section => {
+        section.classList.add('opacity-0', 'translate-y-12', 'transition-all', 'duration-1000');
+        revealObserver.observe(section);
+    });
+    
+    // Hero section should be visible immediately
+    const heroSection = document.querySelector('section:first-child');
+    if (heroSection) {
+        heroSection.classList.remove('opacity-0', 'translate-y-12');
+        heroSection.classList.add('opacity-100', 'translate-y-0');
+    }
+});
+
+// Form submission handling
+document.addEventListener('DOMContentLoaded', function() {
+    const waitlistForm = document.querySelector('form');
+    if (waitlistForm) {
+        waitlistForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const emailInput = this.querySelector('input[type="email"]');
+            const submitButton = this.querySelector('button[type="submit"]');
+            
+            if (emailInput && emailInput.value) {
+                const resetLoading = addLoadingState(submitButton);
+                
+                // Simulate form submission
+                setTimeout(() => {
+                    resetLoading();
+                    emailInput.value = '';
+                    
+                    // Show success message
+                    const successMessage = document.createElement('div');
+                    successMessage.className = 'mt-4 p-4 bg-green-100 text-green-800 rounded-lg';
+                    successMessage.textContent = '🎉 Thanks! You\'ve been added to our waitlist.';
+                    
+                    this.appendChild(successMessage);
+                    
+                    setTimeout(() => {
+                        successMessage.remove();
+                    }, 5000);
+                }, 1000);
+            }
+        });
+    }
+}); 

@@ -4,169 +4,235 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BeerFund - Turn Challenges Into Rewards</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'beer': {
+                            50: '#fef3c7',
+                            100: '#fde68a',
+                            200: '#fcd34d',
+                            300: '#fbbf24',
+                            400: '#f59e0b',
+                            500: '#d97706',
+                            600: '#b45309',
+                            700: '#92400e',
+                            800: '#78350f',
+                            900: '#451a03',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'confetti': 'confetti 3s ease-in infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-20px) rotate(10deg)' },
+                        },
+                        confetti: {
+                            '0%': { transform: 'translateY(-20px) rotate(0deg)', opacity: '0' },
+                            '50%': { opacity: '1' },
+                            '100%': { transform: 'translateY(20px) rotate(360deg)', opacity: '0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
-<body>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100">
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <div class="logo">
-                        🍻 <span>BeerFund</span>
+    <section class="min-h-screen bg-gradient-to-br from-beer-50 to-beer-100 flex items-center relative overflow-hidden">
+        <div class="container mx-auto px-6 py-20">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="text-center lg:text-left">
+                    <div class="text-4xl lg:text-6xl font-bold text-beer-600 mb-8">
+                        🍻 BeerFund
                     </div>
-                    <h1>Turn Challenges Into <span class="highlight">Rewards</span></h1>
-                    <p class="hero-subtitle">Set fun personal challenges, hit your goals, and earn credits for treats like beer, coffee, or whatever motivates you!</p>
-                    <div class="cta-buttons">
-                        <button class="btn btn-primary" onclick="openWaitlist()">Join the Waitlist</button>
-                        <button class="btn btn-secondary" onclick="scrollToAppStore()">Download on App Store</button>
+                    <h1 class="text-5xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
+                        Turn Challenges Into <span class="text-beer-500">Rewards</span>
+                    </h1>
+                    <p class="text-xl lg:text-2xl text-gray-600 mb-10 leading-relaxed">
+                        Set fun personal challenges, hit your goals, and earn credits for treats like beer, coffee, or whatever motivates you!
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <button class="bg-gradient-to-r from-beer-400 to-beer-500 text-white font-bold py-5 px-10 rounded-full shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 transform text-lg">
+                            Join the Waitlist
+                        </button>
+                        <button class="bg-white text-purple-600 font-bold py-5 px-10 rounded-full border-2 border-gray-200 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 transform text-lg">
+                            Download on App Store
+                        </button>
                     </div>
                 </div>
-                <div class="hero-visual">
-                    <div class="phone-mockup">
-                        <div class="phone-screen">
-                            <div class="app-preview">
-                                <div class="challenge-card">
-                                    <div class="challenge-icon">🏃‍♂️</div>
-                                    <h3>Workout Challenge</h3>
-                                    <div class="progress-bar">
-                                        <div class="progress" style="width: 75%"></div>
-                                    </div>
-                                    <p>3/4 workouts completed</p>
-                                </div>
+                <div class="flex justify-center">
+                    <div class="w-80 h-96 bg-gray-800 rounded-[40px] p-6 shadow-2xl relative">
+                        <div class="absolute top-5 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-gray-600 rounded-full"></div>
+                        <div class="bg-white h-full rounded-[25px] p-5 flex items-center justify-center">
+                            <div class="text-center">
+                                <div class="text-6xl mb-4 animate-bounce-slow">🍺</div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-2">You've been BeerFunded!</h3>
+                                <div class="text-4xl font-bold text-green-600 mb-2">$5.00</div>
+                                <div class="text-gray-600 mb-2">from Casey</div>
+                                <div class="text-green-600 font-semibold">✅ Sold 2 items</div>
+                                <div class="text-2xl mt-4 animate-confetti">🎉 🎊 🍻</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Floating Elements -->
+        <div class="absolute top-20 right-20 text-4xl animate-float">🍺</div>
+        <div class="absolute top-60 right-32 text-4xl animate-float" style="animation-delay: 2s;">💰</div>
+        <div class="absolute top-40 right-48 text-4xl animate-float" style="animation-delay: 4s;">✅</div>
     </section>
 
     <!-- How It Works Section -->
-    <section class="how-it-works">
-        <div class="container">
-            <h2>How It Works</h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-icon">🎯</div>
-                    <h3>Set a Challenge</h3>
-                    <p>Choose from pre-built challenges or create your own personal goals</p>
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl lg:text-6xl font-bold text-center text-gray-900 mb-16">How It Works</h2>
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="text-center group">
+                    <div class="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">🎯</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Set a Challenge</h3>
+                    <p class="text-lg text-gray-600 leading-relaxed">Choose from pre-built challenges or create your own personal goals</p>
                 </div>
-                <div class="step">
-                    <div class="step-icon">💪</div>
-                    <h3>Hit Your Target</h3>
-                    <p>Track your progress and complete your challenges with fun reminders</p>
+                <div class="text-center group">
+                    <div class="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">💪</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Hit Your Target</h3>
+                    <p class="text-lg text-gray-600 leading-relaxed">Track your progress and complete your challenges with fun reminders</p>
                 </div>
-                <div class="step">
-                    <div class="step-icon">🍺</div>
-                    <h3>Earn Credits</h3>
-                    <p>Get rewarded with credits to spend on treats and rewards</p>
+                <div class="text-center group">
+                    <div class="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">🍺</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Earn Credits</h3>
+                    <p class="text-lg text-gray-600 leading-relaxed">Get rewarded with credits to spend on treats and rewards</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Challenge Examples Section -->
-    <section class="challenges">
-        <div class="container">
-            <h2>Popular Challenges</h2>
-            <div class="challenge-carousel">
-                <div class="challenge-card">
-                    <div class="challenge-icon">🧹</div>
-                    <h3>Declutter Challenge</h3>
-                    <p>Sell or donate 10 items</p>
-                    <div class="reward">Reward: $5 credit</div>
+    <section class="py-20 bg-gradient-to-br from-purple-50 to-purple-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl lg:text-6xl font-bold text-center text-gray-900 mb-16">Popular Challenges</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 text-center">
+                    <div class="text-5xl mb-4">🧹</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Declutter Challenge</h3>
+                    <p class="text-gray-600 mb-4">Sell or donate 10 items</p>
+                    <div class="bg-gradient-to-r from-beer-400 to-beer-500 text-white py-2 px-4 rounded-full text-sm font-semibold inline-block">
+                        Reward: $5 credit
+                    </div>
                 </div>
-                <div class="challenge-card">
-                    <div class="challenge-icon">🏃‍♂️</div>
-                    <h3>Fitness Challenge</h3>
-                    <p>Complete 4 workouts this week</p>
-                    <div class="reward">Reward: Coffee treat</div>
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 text-center">
+                    <div class="text-5xl mb-4">🏃‍♂️</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Fitness Challenge</h3>
+                    <p class="text-gray-600 mb-4">Complete 4 workouts this week</p>
+                    <div class="bg-gradient-to-r from-beer-400 to-beer-500 text-white py-2 px-4 rounded-full text-sm font-semibold inline-block">
+                        Reward: Coffee treat
+                    </div>
                 </div>
-                <div class="challenge-card">
-                    <div class="challenge-icon">📚</div>
-                    <h3>Learning Challenge</h3>
-                    <p>Read for 30 minutes daily</p>
-                    <div class="reward">Reward: Beer reward</div>
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 text-center">
+                    <div class="text-5xl mb-4">📚</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Learning Challenge</h3>
+                    <p class="text-gray-600 mb-4">Read for 30 minutes daily</p>
+                    <div class="bg-gradient-to-r from-beer-400 to-beer-500 text-white py-2 px-4 rounded-full text-sm font-semibold inline-block">
+                        Reward: Beer reward
+                    </div>
                 </div>
-                <div class="challenge-card">
-                    <div class="challenge-icon">💰</div>
-                    <h3>Savings Challenge</h3>
-                    <p>Save $100 this month</p>
-                    <div class="reward">Reward: $10 credit</div>
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 text-center">
+                    <div class="text-5xl mb-4">💰</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Savings Challenge</h3>
+                    <p class="text-gray-600 mb-4">Save $100 this month</p>
+                    <div class="bg-gradient-to-r from-beer-400 to-beer-500 text-white py-2 px-4 rounded-full text-sm font-semibold inline-block">
+                        Reward: $10 credit
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Why BeerFund Section -->
-    <section class="why-beerfund">
-        <div class="container">
-            <h2>Why Choose BeerFund?</h2>
-            <div class="benefits">
-                <div class="benefit">
-                    <div class="benefit-icon">🎮</div>
-                    <h3>Gamified</h3>
-                    <p>Turn boring tasks into exciting challenges with progress tracking</p>
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl lg:text-6xl font-bold text-center text-gray-900 mb-16">Why Choose BeerFund?</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <div class="text-center group">
+                    <div class="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">🎮</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Gamified</h3>
+                    <p class="text-lg text-gray-600 leading-relaxed">Turn boring tasks into exciting challenges with progress tracking</p>
                 </div>
-                <div class="benefit">
-                    <div class="benefit-icon">🎁</div>
-                    <h3>Rewarding</h3>
-                    <p>Earn real credits for completing your goals and treating yourself</p>
+                <div class="text-center group">
+                    <div class="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">🎁</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Rewarding</h3>
+                    <p class="text-lg text-gray-600 leading-relaxed">Earn real credits for completing your goals and treating yourself</p>
                 </div>
-                <div class="benefit">
-                    <div class="benefit-icon">🤝</div>
-                    <h3>Community</h3>
-                    <p>Share challenges with friends and celebrate wins together</p>
+                <div class="text-center group">
+                    <div class="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">🤝</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Community</h3>
+                    <p class="text-lg text-gray-600 leading-relaxed">Share challenges with friends and celebrate wins together</p>
                 </div>
-                <div class="benefit">
-                    <div class="benefit-icon">⚡</div>
-                    <h3>Simple</h3>
-                    <p>Clean, intuitive design that makes habit tracking actually fun</p>
+                <div class="text-center group">
+                    <div class="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">⚡</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Simple</h3>
+                    <p class="text-lg text-gray-600 leading-relaxed">Clean, intuitive design that makes habit tracking actually fun</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Waitlist Section -->
-    <section class="waitlist">
-        <div class="container">
-            <h2>Join the Movement</h2>
-            <p class="waitlist-subtitle">Be among the first to turn your challenges into rewards!</p>
-            <form class="waitlist-form" id="waitlistForm">
-                <div class="form-group">
-                    <input type="email" id="email" placeholder="Enter your email address" required>
-                    <button type="submit" class="btn btn-primary">Join Waitlist</button>
+    <section class="py-20 bg-gradient-to-br from-purple-600 to-purple-800 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl lg:text-6xl font-bold mb-6">Join the Movement</h2>
+            <p class="text-xl lg:text-2xl text-purple-100 mb-12 max-w-3xl mx-auto">
+                Be among the first to turn your challenges into rewards!
+            </p>
+            <form class="max-w-md mx-auto mb-8">
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <input type="email" placeholder="Enter your email address" required 
+                           class="flex-1 px-6 py-4 rounded-full text-gray-900 font-medium focus:outline-none focus:ring-4 focus:ring-purple-300">
+                    <button type="submit" 
+                            class="bg-gradient-to-r from-beer-400 to-beer-500 text-white font-bold py-4 px-8 rounded-full hover:shadow-xl hover:-translate-y-1 transition-all duration-300 transform">
+                        Join Waitlist
+                    </button>
                 </div>
             </form>
-            <p class="form-note">We'll notify you when BeerFund launches on the App Store!</p>
+            <p class="text-purple-200 text-sm">We'll notify you when BeerFund launches on the App Store!</p>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    🍻 BeerFund
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8 items-center mb-12">
+                <div class="text-3xl font-bold text-beer-400">🍻 BeerFund</div>
+                <div class="text-center space-y-4">
+                    <a href="#" class="block text-gray-300 hover:text-beer-400 transition-colors">Privacy Policy</a>
+                    <a href="#" class="block text-gray-300 hover:text-beer-400 transition-colors">Terms of Service</a>
+                    <a href="#" class="block text-gray-300 hover:text-beer-400 transition-colors flex items-center justify-center gap-2">
+                        📸 Instagram
+                    </a>
                 </div>
-                <p>&copy; 2025 BeerFund. Turn challenges into rewards.</p>
+                <div class="text-right">
+                    <button class="bg-white text-gray-900 font-bold py-3 px-6 rounded-full hover:bg-gray-100 transition-colors">
+                        Download for iOS
+                    </button>
+                </div>
+            </div>
+            <div class="text-center pt-8 border-t border-gray-800">
+                <p class="text-gray-400">&copy; 2025 BeerFund. Turn challenges into rewards.</p>
             </div>
         </div>
     </footer>
-
-    <!-- Waitlist Modal -->
-    <div class="modal" id="waitlistModal">
-        <div class="modal-content">
-            <span class="close" onclick="closeWaitlist()">&times;</span>
-            <h2>🎉 Welcome to BeerFund!</h2>
-            <p>You've been added to our waitlist. We'll notify you as soon as the app launches!</p>
-            <button class="btn btn-primary" onclick="closeWaitlist()">Awesome!</button>
-        </div>
-    </div>
 
     <script src="script.js"></script>
 </body>
