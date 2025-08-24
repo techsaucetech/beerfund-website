@@ -3,49 +3,69 @@
 <head>
     <title>OAuth Success</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        .loading { color: #666; }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+    </style>
 </head>
 <body>
     <h1>Connecting Bank...</h1>
-    <p>Please wait while we complete your connection.</p>
+    <p class="loading">Please wait while we complete your connection.</p>
     
     <script>
+        console.log('OAuth callback page loaded');
+        console.log('Current URL:', window.location.href);
+        
         // Get the public_token from URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const publicToken = urlParams.get('public_token');
         const error = urlParams.get('error');
         
-        console.log('OAuth callback received:', { publicToken, error });
+        console.log('URL parameters:', Object.fromEntries(urlParams));
+        console.log('Public token:', publicToken);
+        console.log('Error:', error);
         
         if (error) {
+            console.error('OAuth error:', error);
             document.body.innerHTML = `
-                <h1>Connection Error</h1>
+                <h1 class="error">Connection Error</h1>
                 <p>Error: ${error}</p>
                 <p>Please return to the BeerFund app.</p>
             `;
         } else if (publicToken) {
-            console.log('Token received, redirecting to app...');
+            console.log('✅ Token received, redirecting to app...');
             
-            // Immediately redirect to iOS app with the token
+            document.body.innerHTML = `
+                <h1 class="success">Bank Connected!</h1>
+                <p>Redirecting back to BeerFund app...</p>
+            `;
+            
+            // IMMEDIATELY redirect to iOS app with the token
             const appUrl = `beerfund://plaid-success?token=${publicToken}`;
             console.log('Redirecting to:', appUrl);
             
-            // Try to open the iOS app
-            window.location.href = appUrl;
-            
-            // Fallback: show success message
+            // Try multiple redirect methods
             setTimeout(() => {
-                document.body.innerHTML = `
-                    <h1>Bank Connected!</h1>
-                    <p>You can now return to the BeerFund app.</p>
-                    <p>If the app didn't open automatically, please return manually.</p>
-                `;
-            }, 2000);
+                console.log('Attempting redirect...');
+                try {
+                    window.location.assign(appUrl);
+                } catch (e) {
+                    console.error('Redirect failed:', e);
+                    window.location.href = appUrl;
+                }
+            }, 500);
+            
         } else {
-            console.log('No token found in URL');
+            console.log('❌ No token found in URL');
             document.body.innerHTML = `
-                <h1>OAuth Callback</h1>
-                <p>No token received. Please return to the BeerFund app.</p>
-                <p>Debug info: ${window.location.search}</p>
+                <h1 class="error">OAuth Callback</h1>
+                <p>No token received from Plaid.</p>
+                <p><strong>Debug Info:</strong></p>
+                <p>URL: ${window.location.href}</p>
+                <p>Search: ${window.location.search}</p>
+                <p>Please return to the BeerFund app.</p>
             `;
         }
     </script>
