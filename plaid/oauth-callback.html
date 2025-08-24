@@ -9,10 +9,19 @@
     <p>Please wait while we complete your bank connection.</p>
     
     <script>
+        // DEBUG: Log all URL parameters
+        console.log('Full URL:', window.location.href);
+        console.log('Search params:', window.location.search);
+        
         // Get the public_token from URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const publicToken = urlParams.get('public_token');
         const error = urlParams.get('error');
+        
+        // DEBUG: Log what we found
+        console.log('Public token:', publicToken);
+        console.log('Error:', error);
+        console.log('All params:', Object.fromEntries(urlParams));
         
         if (error) {
             document.body.innerHTML = `
@@ -34,8 +43,12 @@
             document.body.innerHTML = `
                 <h1>OAuth Callback</h1>
                 <p>No token received. Please return to the BeerFund app.</p>
+                <p><strong>Debug Info:</strong></p>
+                <p>Full URL: ${window.location.href}</p>
+                <p>Search: ${window.location.search}</p>
+                <p>All Params: ${JSON.stringify(Object.fromEntries(urlParams), null, 2)}</p>
             `;
         }
     </script>
 </body>
-</html> 
+</html>
