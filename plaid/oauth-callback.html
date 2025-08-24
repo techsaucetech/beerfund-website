@@ -5,23 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <h1>Processing OAuth...</h1>
-    <p>Please wait while we complete your bank connection.</p>
+    <h1>OAuth in Progress...</h1>
+    <p>Please complete your bank authentication.</p>
+    <p>This page will automatically redirect when complete.</p>
     
     <script>
-        // DEBUG: Log all URL parameters
-        console.log('Full URL:', window.location.href);
-        console.log('Search params:', window.location.search);
-        
-        // Get the public_token from URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const publicToken = urlParams.get('public_token');
         const error = urlParams.get('error');
-        
-        // DEBUG: Log what we found
-        console.log('Public token:', publicToken);
-        console.log('Error:', error);
-        console.log('All params:', Object.fromEntries(urlParams));
+        const oauthStateId = urlParams.get('oauth_state_id');
         
         if (error) {
             document.body.innerHTML = `
@@ -35,10 +27,22 @@
                 <p>You can now return to the BeerFund app.</p>
             `;
             
-            // Try to open the iOS app
             setTimeout(() => {
                 window.location.href = 'beerfund://plaid-success?token=' + publicToken;
             }, 2000);
+        } else if (oauthStateId) {
+            // OAuth is in progress - wait for completion
+            document.body.innerHTML = `
+                <h1>OAuth in Progress...</h1>
+                <p>Please complete your bank authentication.</p>
+                <p>This page will automatically redirect when complete.</p>
+                <p><strong>State ID:</strong> ${oauthStateId}</p>
+            `;
+            
+            // Poll for completion (optional)
+            setTimeout(() => {
+                window.location.reload();
+            }, 5000);
         } else {
             document.body.innerHTML = `
                 <h1>OAuth Callback</h1>
