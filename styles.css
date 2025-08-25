@@ -121,6 +121,17 @@ body {
     animation: confetti 3s ease-in infinite;
 }
 
+/* Floating emojis - hidden on mobile */
+.floating-emoji {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .floating-emoji {
+        display: block;
+    }
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .phone-mockup {
