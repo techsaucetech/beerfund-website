@@ -43,7 +43,7 @@ body {
 
 /* Realistic iPhone Mockup */
 .phone-mockup {
-    width: 320px;
+    width: 384px;
     height: auto;
     max-width: 100%;
     filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
@@ -124,7 +124,7 @@ body {
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .phone-mockup {
-        width: 280px;
+        width: 336px;
         transform: perspective(800px) rotateY(-10deg) rotateX(3deg);
     }
     
@@ -135,7 +135,7 @@ body {
 
 @media (max-width: 480px) {
     .phone-mockup {
-        width: 240px;
+        width: 288px;
         transform: perspective(600px) rotateY(-5deg) rotateX(2deg);
     }
     
