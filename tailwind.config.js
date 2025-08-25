@@ -34,7 +34,7 @@ module.exports = {
         }
       },
       fontFamily: {
-        'sans': ['Inter', 'system-ui', 'sans-serif'],
+        'sans': ['Sora', 'system-ui', 'sans-serif'],
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
