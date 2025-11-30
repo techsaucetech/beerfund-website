@@ -309,4 +309,86 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-}); 
+    
+    // Contact Support Form Handling
+    const contactForm = document.getElementById('contact-support-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            submitButton.innerHTML = 'Sending...';
+            submitButton.disabled = true;
+            
+            // Get form data
+            const formData = new FormData(this);
+            const email = formData.get('email');
+            
+            // Set reply-to field
+            const replyToInput = this.querySelector('input[name="_replyto"]');
+            if (replyToInput) {
+                replyToInput.value = email;
+            }
+            
+            // Submit to Formspree
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Show success message
+                    showFormMessage(this, 'success', '✅ Thank you! Your message has been sent. We\'ll get back to you soon.');
+                    this.reset();
+                } else {
+                    return response.json().then(data => {
+                        if (Object.hasOwnProperty.call(data, 'errors')) {
+                            throw new Error(data.errors.map(error => error.message).join(', '));
+                        } else {
+                            throw new Error('There was a problem sending your message. Please try again.');
+                        }
+                    });
+                }
+            })
+            .catch(error => {
+                // Show error message
+                showFormMessage(this, 'error', '❌ ' + error.message + ' You can also email us directly at getbeerfund@gmail.com');
+            })
+            .finally(() => {
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+            });
+        });
+    }
+});
+
+// Helper function to show form messages
+function showFormMessage(form, type, message) {
+    // Remove any existing messages
+    const existingMessage = form.querySelector('.form-message');
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `form-message mt-4 p-4 rounded-xl font-medium ${
+        type === 'success' 
+            ? 'bg-green-100 text-green-800 border-2 border-green-300' 
+            : 'bg-red-100 text-red-800 border-2 border-red-300'
+    }`;
+    messageDiv.textContent = message;
+    
+    form.appendChild(messageDiv);
+    
+    // Scroll to message
+    messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    
+    // Remove message after 8 seconds
+    setTimeout(() => {
+        messageDiv.remove();
+    }, 8000);
+} 
